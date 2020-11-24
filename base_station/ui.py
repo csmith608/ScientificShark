@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import time
-import numpy as np
 
 fig = plt.figure(figsize=(20,10))
 ax1= fig.add_subplot(221)  
