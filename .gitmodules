@@ -1,0 +1,3 @@
+[submodule "diyBMSv4Code"]
+	path = diyBMSv4Code
+	url = https://github.com/csmith608/diyBMSv4Code.git
