@@ -10,9 +10,7 @@ In 1989, an Exxon oil tanker hit a reef, spilling more than 11 million gallons o
 We have code for three separate systems in this repository
 - profiler: contains code running on the Raspberry Pi that is the processing unit for the moored profiler, including running the sending radio, collecting data, and running the winch
 - base_station: contains the code running on the base station Raspberry Pi, including the receiving radio and user interface
-- diyBMSv4Code @ cd5c401: a submodule containing the diyBMS code created by Stuart Pittaway and modified slightly 
--compass
--motor
+- diyBMSv4Code @ cd5c401: a submodule containing the diyBMS code created by Stuart Pittaway and modified slightly to send the battery information through the debug pins 
 
 # Installation 
 
@@ -25,7 +23,7 @@ Switch into the ScientificShark directory and initialize the submodule:
 
 <code>git submodule update</code>
 
-## Libraries
+# Libraries
 
 The following python libraries are required:
 - PySerial
@@ -42,6 +40,8 @@ To run the python files that include radio sending/receiving the Adafruit Circui
 For working with the diyBMS code, created by Stuart Pittaway, please see the source repository https://github.com/stuartpittaway/diyBMSv4
 
 Adam Welch has informative videos for working with the diyBMS components: https://www.youtube.com/watch?v=bFUMxgrz-yo 
+
+# Pinouts
 
 # Licence 
 
