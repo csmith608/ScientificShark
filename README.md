@@ -15,7 +15,7 @@ We have code for three separate systems in this repository
 # Installation 
 
 First clone the whole repository:
-<code>git clone git@github.gatech.edu:csmith608/ScientificShark.git </code>
+<code>git clone https://github.com/csmith608/ScientificShark.git </code>
 
 Switch into the ScientificShark directory and initialize the submodule: 
 
