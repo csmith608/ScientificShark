@@ -43,6 +43,8 @@ Adam Welch has informative videos for working with the diyBMS components: https:
 
 # Pinouts
 
+![pinout](https://github.com/csmith608/ScientificShark/blob/main/images/Profiler%20pinout.png)
+
 # Licence 
 
 MIT License
