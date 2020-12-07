@@ -2,7 +2,7 @@
 
 WATER: Wave powered Autonomous Tethered Examining Robot
 
-Repository for the software used/created by the ECE-4873-D1A team Scientific Shark
+Repository for the software, CAD, and EAGLE files used/created by the ECE-4873-D1A team Scientific Shark
 
 In 1989, an Exxon oil tanker hit a reef, spilling more than 11 million gallons of oil into Prince William Sound, devastating the ecosystem. A moored profiler was placed in the sound to monitor the health of the ecosystem. Currently, the scientists must go out weekly to charge the profiler and download data. Our project is to design a prototype of a new profiler that includes an innovative way to charge the profiler and communicate the system over longer distances. 
 
