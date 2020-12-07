@@ -23,6 +23,14 @@ Switch into the ScientificShark directory and initialize the submodule:
 
 <code>git submodule update</code>
 
+The WEMOS on the diyBMS controller board needs to be flashed with the code in the diyBMSv4Code @ cd5c401 -> ESPController as instructed in this video: https://www.youtube.com/watch?v=wTqDMg_Ql98
+
+Each ATTiny on each diyBMS cell module board also needs to be flash with the code in diyBMSv4Code @ cd5c401 -> ATTINYCellModule as instructed at the end of the above video (https://www.youtube.com/watch?v=wTqDMg_Ql98) 
+
+The Raspberry Pi acting as the profiler will need to be connected as shown in the Pinouts section and the Python file in the profiler directory is run
+
+The Raspberry Pi acting as the base station only has the LoRa Radio bonnet attached and the two Python files in the base_station directory are run
+
 # Libraries
 
 The following python libraries are required:
