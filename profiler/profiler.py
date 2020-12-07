@@ -27,6 +27,7 @@ in1 = 27
 in2 = 16
 en = 17
 
+# GPIO setup
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(in1,GPIO.OUT)
 GPIO.setup(in2,GPIO.OUT)
@@ -62,13 +63,18 @@ prev_packet = None
 display.fill(0)
 display.show()
 
+# initialize lists
 compassList = []
 bmsList = []
 
+'''
+function to read information from the sensors while the profiler is "underwater"
+returns lists of the data gathered from the compass and BMS
+'''
 def readSensor() -> [list, list]:
     compassList.clear()
     bmsList.clear()
-    # TODO assign ttyUSB numbers accordingly
+    #open serial interface, could probably be moved outside this function
     serCompass = serial.Serial('/dev/ttyUSB0', 19200, timeout=1)
     serBMS = serial.Serial('/dev/ttyUSB1', 115200, timeout=1)
     #serCompass.flush()
@@ -77,22 +83,29 @@ def readSensor() -> [list, list]:
     t_end = time.time() + timeUnderwater
     # TODO a much needed future improvement would be to make threads do the listening 
     while time.time() < t_end:
+        # if there is something to read, read it
+        # TODO: add error checking when collecting the data (like checking the checksums/CRCs)
         if serBMS.in_waiting > 0:
             lineBMS = serBMS.readline().rstrip()
+            # append the new reading to the end of the list
             bmsList.append(lineBMS)
             print("diyBMS line read ", lineBMS)
         if serCompass.in_waiting > 0:
             lineCompass = serCompass.readline().rstrip()
+            # append the new reading to the end of the list
             compassList.append(lineCompass)
             print("Compass line read", lineCompass)
+        # read diyBMS again because two different lines are being send (temp and voltage)
         if serBMS.in_waiting > 0:
             lineBMS = serBMS.readline().rstrip()
+            # append the new reading to the end of the list
             bmsList.append(lineBMS)
             print("diyBMS line read ", lineBMS)
-        #collect information every 10 seconds
+        # collect information every 8 seconds
         time.sleep(8)
     return compassList, bmsList
-        
+
+# main loop for going through the sequence of profiler states
 while True:
     packet = None
     print("///////////////////////////////////////////////////////////")
@@ -108,6 +121,7 @@ while True:
     display.fill(0)
     display.text('Recalling', 25, 15, 1)
     display.show()
+    # strange issues with the motor so this technique was developed
     GPIO.output(in1,GPIO.LOW)
     GPIO.output(in2,GPIO.HIGH)
     GPIO.output(in1,GPIO.LOW)
@@ -120,12 +134,12 @@ while True:
     while time.time() < t_end:
         GPIO.output(in1,GPIO.LOW)
         GPIO.output(in2,GPIO.HIGH)
-    # stop
     time.sleep(1)
     print("Surfaced")
     display.fill(0)
     display.text('Surfaced', 25, 15, 1)
     display.show()
+    # stop motor
     GPIO.output(in1,GPIO.LOW)
     GPIO.output(in2,GPIO.LOW)
     time.sleep(1)
@@ -135,12 +149,15 @@ while True:
     display.fill(0)
     display.text('Sending data', 25, 15, 1)
     display.show()
+    # iterate through and send compass list of data
     for c in range(0, len(compass_list)):
         if len(compass_list[c]) != 0:
             rfm9x.send(compass_list[c])
             #time.sleep(3)
+    # flag to show compass data is done being sent
     rfm9x.send(bytes("1", "utf-8"))
     time.sleep(3)
+    # iterate through and send bms data
     for b in range(0, len(bms_list)):
         #if len(bms_list[b]) != 0:
         rfm9x.send(bms_list[b])
@@ -181,4 +198,4 @@ while True:
     GPIO.output(in1,GPIO.LOW)
     GPIO.output(in2,GPIO.LOW)
     time.sleep(1)
-  
+
